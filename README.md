@@ -1,5 +1,5 @@
 ## Typeometer
 
-A simple typing speed mesauring website.
+"A simple typing speed mesauring website."
 
--- Godd
+== Godd
