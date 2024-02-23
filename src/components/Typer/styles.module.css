@@ -1,0 +1,18 @@
+.typer {
+  border: 1px solid var(--typer-border);
+  border-radius: 4px;
+  width: 60vw;
+  height: 50vh;
+  color: var(--typer-fg);
+  padding: 12px;
+  resize: none;
+}
+
+.typer:focus {
+  outline: none;
+}
+
+.typer:disabled {
+  background-color: #fff;
+  cursor: not-allowed;
+}
