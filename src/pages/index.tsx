@@ -4,8 +4,9 @@ import { Container } from "@/components/Container";
 import { Speedometer } from "@/components/Speedometer";
 import { Typer } from "@/components/Typer";
 import { Spacer } from "@/components/Spacer";
-import { Button } from "@/components/Button";
+import { Button, ButtonVariant } from "@/components/Button";
 import { FloatingCountdown } from "@/components/FloatingCountdown";
+import { Content } from "@/components/Content";
 
 export default function Home() {
   const [speed, setSpeed] = useState<number>(0);
@@ -13,9 +14,9 @@ export default function Home() {
   const [startTime, setStartTime] = useState<number | undefined>(undefined);
   const [startCountDown, setStartCountdown] = useState(false);
 
-  const inputRef = useRef<HTMLTextAreaElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  useHotkeys("mod+s", () => handleClick(), {
+  useHotkeys("mod+/", () => handleClick(), {
     preventDefault: true,
     enableOnContentEditable: true,
     enableOnFormTags: true
@@ -26,7 +27,7 @@ export default function Home() {
     if (inputRef.current) inputRef.current.focus();
   }, [startTime]);
 
-  const handleTextOnChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+  const handleTextOnChange = (e: ChangeEvent<HTMLInputElement>) => {
     let txt = e.target.value;
     setText(txt);
     calculateSpeed(txt);
@@ -69,14 +70,26 @@ export default function Home() {
 
   return (
     <Container>
+      {/* Speedometer */}
       <Speedometer speed={speed} />
+      {/* Space */}
       <Spacer height="40px" width="100%" />
+      {/* Content */}
+      <Content />
+      {/* Space */}
+      <Spacer height="40px" width="100%" />
+      {/* Input */}
       <Typer ref={inputRef} value={text} onChange={handleTextOnChange} disabled={!startTime} />
+      {/* Space */}
       <Spacer height="40px" width="100%" />
-
-      <Button onClick={handleClick} shortKey={"^S"}>
+      {/* Button */}
+      <Button
+        onClick={handleClick}
+        shortKey={"^/"}
+        variant={startTime ? ButtonVariant.DANGER : ButtonVariant.PRIMARY}>
         {startTime ? "Stop" : "Start"}
       </Button>
+      {/* Countdown - shows in top (position fixed) */}
       {startCountDown ? <FloatingCountdown count={3} callback={countdownCompleteCallback} /> : ""}
     </Container>
   );

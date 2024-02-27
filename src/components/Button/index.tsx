@@ -1,17 +1,20 @@
 import React from "react";
 import clsx from "clsx";
 
-const Button: React.FC<React.HTMLAttributes<HTMLButtonElement> & { shortKey?: string }> = ({
-  children,
-  className,
-  shortKey,
-  ...rest
-}) => {
+export enum ButtonVariant {
+  PRIMARY,
+  DANGER
+}
+
+const Button: React.FC<
+  React.HTMLAttributes<HTMLButtonElement> & { shortKey?: string; variant?: ButtonVariant }
+> = ({ children, className, shortKey, variant = ButtonVariant.PRIMARY, ...rest }) => {
   return (
     <button
       className={clsx(
         "rounded-[4px]",
-        "bg-[var(--primary-color)]",
+        variant === ButtonVariant.PRIMARY && "bg-[var(--primary-color)]",
+        variant === ButtonVariant.DANGER && "bg-red-700",
         "px-[16px]",
         "py-[8px]",
         "text-white",
@@ -29,7 +32,15 @@ const Button: React.FC<React.HTMLAttributes<HTMLButtonElement> & { shortKey?: st
       {...rest}>
       {children}
       {shortKey && (
-        <span className={clsx("text-[0.6rem]", "px-1", "py-[2px]", "bg-[#196cfc]", "rounded")}>
+        <span
+          className={clsx(
+            "text-[0.6rem]",
+            "px-1",
+            "py-[2px]",
+            variant === ButtonVariant.PRIMARY && "bg-[#196cfc]",
+            variant === ButtonVariant.DANGER && "bg-[#fc1919]",
+            "rounded"
+          )}>
           {shortKey}
         </span>
       )}

@@ -1,11 +1,11 @@
-import React, { TextareaHTMLAttributes } from "react";
+import React from "react";
 import clsx from "clsx";
 
 import styles from "./styles.module.css";
 
-const Typer = React.forwardRef<HTMLTextAreaElement, TextareaHTMLAttributes<HTMLTextAreaElement>>(
+const Typer = React.forwardRef<HTMLInputElement, React.InputHTMLAttributes<HTMLInputElement>>(
   ({ className, ...rest }, ref) => {
-    return <textarea ref={ref} className={clsx(styles.typer, className)} {...rest} />;
+    return <input ref={ref} className={clsx(styles.typer, className)} {...rest} />;
   }
 );
 
